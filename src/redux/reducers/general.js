@@ -16,6 +16,12 @@ const general = (state = [], action) => {
                 recipes: action.recipes,
             };
 
+        case "SET_SEARCH":
+            return {
+                ...state,
+                search: action.payload,
+            };
+
         default:
             return state;
     }

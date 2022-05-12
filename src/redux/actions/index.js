@@ -8,3 +8,9 @@ export const setRecipesRedux = (recipes) => ({
     type: "SET_RECIPES",
     recipes,
 });
+
+
+export const setSearch = (search) => ({
+    type: "SET_SEARCH",
+    payload: search,
+});

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Recipe from './components/recipe';
+import SearchComponent from './components/SearchComponent';
 import "./App.css";
 import { connect } from "react-redux";
 
-import { setRecipesRedux } from './redux/actions';
+import { setRecipesRedux, setSearch } from './redux/actions';
 
-const App = ({ dispatch, recipes_redux }) => {
+const App = ({ dispatch, recipes_redux, search }) => {
   console.log("recipes_redux: ",);
 
   const APP_ID = 'd105ec91';
   const APP_KEY = '79f7c70f52b1689d755235663c4594b9';
 
   const [recipes, setRecipes] = useState([]);
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [query, setQuery] = useState("chicken");
 
   useEffect(() => {
@@ -28,26 +29,22 @@ const App = ({ dispatch, recipes_redux }) => {
 
   }
   const updateSearch = e => {
-    setSearch(e.target.value);
-    // console.log(search);
+    dispatch(setSearch(e.target.value));
   }
 
   const getSearch = e => {
     e.preventDefault();
     setQuery(search);
-    setSearch('');
+    dispatch(setSearch(''));
   }
   return (
     <div className="App">
 
       <form className="search-form" onSubmit={getSearch}>
-        <input
-          type="text"
-          className="search-bar"
-          value={search}
-          onChange={updateSearch}
+
+        <SearchComponent
         />
-        <button type="submit" className="search-button">Search</button>
+
       </form>
       <div className="recipes">
         {recipes_redux.map((recipe, index) => (
@@ -72,6 +69,7 @@ const mapStateToProps = (state) => {
   console.log("redux state is: ", state);
   return {
     recipes_redux: state.general.recipes,
+    search: state.general.search
   };
 };
 

@@ -3,7 +3,8 @@ export default {
 
     general: {
         current_screen: "",
-        recipes: []
+        recipes: [],
+        search: ''
     },
 
 };
